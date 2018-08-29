@@ -1,21 +1,54 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.scss';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as actions from "./actions/actions";
+import { bindActionCreators } from "redux";
+import "./scss/App.scss";
+import TodoAdd from "./components/main/TodoAdd";
+import TodoList from "./components/main/TodoList";
+
+const mapStateToProps = state => {
+  return {
+    activeTodos: state.todos
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      AddTodo: actions.addTodo
+    },
+    dispatch
+  );
+};
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.state = this.activeTodos;
+  }
+
+  handleSubmit = values => {
+    console.log(values);
+    this.props.AddTodo(values);
+  };
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="container grid-lg">
+          <div className="columns">
+            <TodoAdd handleSubmit={this.handleSubmit} />
+            <TodoList activeTodos={this.props.activeTodos} />
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
