@@ -6,14 +6,19 @@ class SingleTodo extends Component {
       <div className="SingleTodo">
         <div className="card">
           <div className="card-body">
-            <h4>{this.props.text}</h4>
+            <h4>{this.props.task.text}</h4>
           </div>
           <div className="card-footer">
             <p className="float-left text-primary" />
             <button className="btn btn-error float-right">
               <i className="icon icon-delete" />
             </button>
-            <button className="btn btn-success float-right">
+            <button
+              onClick={() => {
+                this.props.handleComplete(this.props.id);
+              }}
+              className="btn btn-success float-right"
+            >
               <i className="icon icon-check" />
             </button>
           </div>

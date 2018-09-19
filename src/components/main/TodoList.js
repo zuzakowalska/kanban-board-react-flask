@@ -2,15 +2,33 @@ import React, { Component } from "react";
 import SingleTodo from "../SingleTodo";
 
 class TodoList extends Component {
+  renderTodo() {
+    const activeTodos = this.props.todos.map(el => {
+      return (
+        <SingleTodo
+          key={el.index}
+          id={el.index}
+          task={el.task}
+          completed={el.completed}
+          handleComplete={this.props.handleComplete}
+        />
+      );
+    });
+    return activeTodos;
+  }
+
   render() {
-    const { todos } = this.props.activeTodos;
     return (
       <div className="TodoList column col-5">
         <div className="panel">
           <div className="panel-header panel-nav">
             <ul className="tab">
               <li className="tab-item active">
-                <a href="" className="badge" data-badge="0">
+                <a
+                  href=""
+                  className="badge"
+                  data-badge={this.renderTodo().length}
+                >
                   {" "}
                   Active Todos
                 </a>
@@ -22,11 +40,7 @@ class TodoList extends Component {
               </li>
             </ul>
           </div>
-          <div className="panel-body">
-            {todos.map((el, index) => (
-              <SingleTodo key={index} text={el.task} />
-            ))}
-          </div>
+          <div className="panel-body">{this.renderTodo()}</div>
           <div className="panel-footer" />
         </div>
       </div>
