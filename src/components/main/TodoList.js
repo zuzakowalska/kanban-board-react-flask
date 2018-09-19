@@ -16,7 +16,6 @@ class TodoList extends Component {
     });
     return activeTodos;
   }
-
   render() {
     return (
       <div className="TodoList column col-5">
@@ -27,14 +26,26 @@ class TodoList extends Component {
                 <a
                   href=""
                   className="badge"
-                  data-badge={this.renderTodo().length}
+                  data-badge={this.props.active.length}
+                  onClick={e => {
+                    e.preventDefault();
+                    this.props.handleFilter("SHOW_ACTIVE");
+                  }}
                 >
                   {" "}
                   Active Todos
                 </a>
               </li>
               <li className="tab-item">
-                <a href="" className="badge" data-badge="0">
+                <a
+                  href=""
+                  className="badge"
+                  data-badge={this.props.done.length}
+                  onClick={e => {
+                    e.preventDefault();
+                    this.props.handleFilter("SHOW_COMPLETED");
+                  }}
+                >
                   Done Todos
                 </a>
               </li>

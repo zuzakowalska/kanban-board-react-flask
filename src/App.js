@@ -27,9 +27,9 @@ const mapDispatchToProps = dispatch => {
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
   }
 
   handleSubmit(data) {
@@ -38,6 +38,10 @@ class App extends Component {
 
   handleComplete(index) {
     this.props.toggleTodo(index);
+  }
+
+  handleFilter(filter) {
+    this.props.setCompleteFilter(filter);
   }
 
   getVisibleTodos(filter) {
@@ -66,6 +70,9 @@ class App extends Component {
             <TodoList
               todos={this.getVisibleTodos(this.props.filter)}
               handleComplete={this.handleComplete}
+              handleFilter={this.handleFilter}
+              done={this.getVisibleTodos("SHOW_COMPLETED")}
+              active={this.getVisibleTodos("SHOW_ACTIVE")}
             />
           </div>
         </div>
