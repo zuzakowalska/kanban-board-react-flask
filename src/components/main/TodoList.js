@@ -11,6 +11,7 @@ class TodoList extends Component {
           task={el.task}
           completed={el.completed}
           handleComplete={this.props.handleComplete}
+          handleDelete={this.props.handleDelete}
         />
       );
     });

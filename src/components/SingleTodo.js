@@ -10,7 +10,12 @@ class SingleTodo extends Component {
           </div>
           <div className="card-footer">
             <p className="float-left text-primary" />
-            <button className="btn btn-error float-right">
+            <button
+              onClick={() => {
+                this.props.handleDelete(this.props.id);
+              }}
+              className="btn btn-error float-right"
+            >
               <i className="icon icon-delete" />
             </button>
             <button

@@ -1,14 +1,19 @@
 let nextTodoIndex = 0;
 export const ADD_TODO = "ADD_TODO";
-export const TOGGLE_TODO = "TOGGLE_TODO";
+export const COMPLETE_TODO = "COMPLETE_TODO";
+export const DELETE_TODO = "DELETE_TODO";
 export const SET_COMPLETE_FILTER = "SET_COMPLETE_FILTER";
 
 export const addTodo = task => {
   return { type: ADD_TODO, task, index: nextTodoIndex++ };
 };
 
-export const toggleTodo = index => {
-  return { type: TOGGLE_TODO, index };
+export const completeTodo = index => {
+  return { type: COMPLETE_TODO, index };
+};
+
+export const deleteTodo = index => {
+  return { type: DELETE_TODO, index };
 };
 
 export const setCompleteFilter = filter => {

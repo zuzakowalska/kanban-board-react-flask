@@ -3,7 +3,8 @@ import { reducer as formReducer } from "redux-form";
 import {
   ADD_TODO,
   SET_COMPLETE_FILTER,
-  TOGGLE_TODO,
+  COMPLETE_TODO,
+  DELETE_TODO,
   completeFilters
 } from "./actions";
 const { SHOW_ACTIVE } = completeFilters;
@@ -28,7 +29,7 @@ const todos = (state = [], action) => {
           index: action.index
         }
       ];
-    case TOGGLE_TODO:
+    case COMPLETE_TODO:
       return state.map((todo, index) => {
         if (index === action.index) {
           return Object.assign({}, todo, {
@@ -37,6 +38,8 @@ const todos = (state = [], action) => {
         }
         return todo;
       });
+    case DELETE_TODO:
+      return state.filter(todo => todo.index !== action.index);
     default:
       return state;
   }

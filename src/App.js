@@ -17,7 +17,8 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       addTodo: actions.addTodo,
-      toggleTodo: actions.toggleTodo,
+      completeTodo: actions.completeTodo,
+      deleteTodo: actions.deleteTodo,
       setCompleteFilter: actions.setCompleteFilter
     },
     dispatch
@@ -30,21 +31,23 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleSubmit(data) {
     this.props.addTodo(data);
   }
-
   handleComplete(index) {
-    this.props.toggleTodo(index);
+    this.props.completeTodo(index);
   }
-
   handleFilter(filter) {
     this.props.setCompleteFilter(filter);
   }
-
+  handleDelete(index) {
+    this.props.deleteTodo(index);
+  }
   getVisibleTodos(filter) {
+    // eslint-disable-next-line
     switch (filter) {
       case "SHOW_ACTIVE":
         return this.props.todos.filter(el => !el.completed);
@@ -70,6 +73,7 @@ class App extends Component {
             <TodoList
               todos={this.getVisibleTodos(this.props.filter)}
               handleComplete={this.handleComplete}
+              handleDelete={this.handleDelete}
               handleFilter={this.handleFilter}
               done={this.getVisibleTodos("SHOW_COMPLETED")}
               active={this.getVisibleTodos("SHOW_ACTIVE")}

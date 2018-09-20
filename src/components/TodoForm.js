@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
+import { reset, Field, reduxForm } from "redux-form";
 
 class TodoForm extends Component {
   render() {
@@ -20,8 +20,12 @@ class TodoForm extends Component {
     );
   }
 }
+
+const afterSubmit = (result, dispatch) => dispatch(reset("todoForm"));
+
 TodoForm = reduxForm({
-  form: "todoForm"
+  form: "todoForm",
+  onSubmitSuccess: afterSubmit
 })(TodoForm);
 
 export default TodoForm;
